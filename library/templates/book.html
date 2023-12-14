@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="bg-dark">
+        <br/><br/>
+        <div class="container">
+            <div class="card mb-3" >
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="{{ book.image.url }}" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8 d-flex align-items-center">
+                    <div class="card-body">
+                        <center>
+                            <br/>
+                            <h5 class="card-title">{{ book.title }}</h5>
+                            <br/>
+                            <p class="card-text" >{{ book.description }}</p>
+                            <br/>
+                            Author: {{ book.author }}
+                            <br/>
+                            <div class="row justify-content-center">
+                            </div>
+                                
+                            <br/> <br/>
+                            <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
+                            <button type="button" value="{{ book.id }}" id="add-cart" class="btn btn-dark">Add to Cart</button>
+                            <br/><br/>
+                        </center>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+        <br/>
+    </div>
+
+<script>
+  // check if button is clicked
+  $(document).on('click', '#add-cart', function(e){
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'cart_add' %}",
+      data: {
+        book_id: $('#add-cart').val(),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post',
+      },
+
+      success: function(json) {
+        document.getElementById('cart_quantity').textContent = json.qty
+      },
+
+      error: function(xhr, errmsg, err){
+
+      },
+
+    });
+  })
+
+</script>
+
+{% endblock %}

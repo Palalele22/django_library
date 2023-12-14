@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Shoping Cart</h1>
+                <p class="lead fw-normal text-white-50 mb-0">View your cart...</p>
+            </div>
+        </div>
+    </header>
+    <!-- Section-->
+    <br/>
+    <div class="container">
+        
+    {% if cart_books %}
+        {% for book in cart_books %}
+        <div class="card mb-3" >
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{ book.image.url }}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8 d-flex align-items-center">
+              <div class="card-body">
+                  <center>
+                      <br/>
+                      <h5 class="card-title">{{ book.title }}</h5>
+                      <br/>
+                      <p class="card-text" >{{ book.description|truncatewords:30 }}</p>
+                      <br/>
+                      Author: {{ book.author }}
+                      <br/>
+                      <div class="row justify-content-center">
+                      </div>
+                          
+                      <br/> <br/>
+                      <a href="{% url 'book' book.id %}" class="btn btn-dark">Book details</a>
+                      <button type="button" data-index="{{ book.id }}" class="btn btn-danger delete-book">Delete</button>
+                      <button type="button" data-index="{{ book.id }}" class="btn btn-success rent-book">Rent Book</button>
+                      <br/><br/>
+                  </center>
+              </div>
+            </div>
+          </div>
+        </div>
+          <br/>
+        {% endfor %}
+    {% else %}
+          There's Nothing In Your Cart...
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    {% endif %}   
+            
+    </div>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+<script>
+      // delete
+$(document).on('click', '.delete-book', function (e) {
+    e.preventDefault();
+
+    // Display a confirmation prompt
+    if (confirm('Are you sure you want to delete this book from the cart?')) {
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'cart_delete' %}",
+            data: {
+                book_id: $(this).data('index'),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post',
+            },
+            success: function (json) {
+                // Update UI or display success message
+                location.reload();
+            },
+            error: function (xhr, errmsg, err) {
+                // Handle errors, display an error message, or log the error
+                console.error('Error deleting item:', errmsg);
+            },
+        });
+
+    }
+});
+
+ // rent
+ $(document).on('click', '.rent-book', function (e) {
+        e.preventDefault();
+
+        // Display a confirmation prompt
+        if (confirm('Are you sure you want to rent this book?')) {
+
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'rent_book' %}",
+                data: {
+                    book_id: $(this).data('index'),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post',
+                },
+                success: function (json) {
+                    // Update UI or display success message
+                    location.reload();
+                },
+                error: function (xhr, errmsg, err) {
+                    // Handle errors, display an error message, or log the error
+                    console.error('Error renting item:', errmsg);
+                },
+            });
+
+        }
+    });
+</script>
+
+{% endblock %}
