@@ -4,7 +4,7 @@
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Shoping Cart</h1>
+                <h1 class="display-4 fw-bolder">Books to rent</h1>
                 <p class="lead fw-normal text-white-50 mb-0">View your cart...</p>
             </div>
         </div>
@@ -18,7 +18,9 @@
         <div class="card mb-3" >
           <div class="row g-0">
             <div class="col-md-4">
-              <img src="{{ book.image.url }}" class="img-fluid rounded-start" alt="...">
+              <div class="image-container">
+                <img src="{{ book.image.url }}" class="img-fluid rounded-start custom-image" alt="...">
+              </div>
             </div>
             <div class="col-md-8 d-flex align-items-center">
               <div class="card-body">
@@ -47,11 +49,9 @@
         {% endfor %}
     {% else %}
           There's Nothing In Your Cart...
-          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     {% endif %}   
             
     </div>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 
 <script>

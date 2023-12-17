@@ -12,44 +12,28 @@
     <!-- Section-->
     <br/>
     <div class="container">
-        
-    {% if rented_books %}
-        {% for book_instance in rented_books %}
-        <div class="card mb-3" >
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="{{ book_instance.book.image.url }}" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8 d-flex align-items-center">
-              <div class="card-body">
-                  <center>
-                      <br/>
-                      <h3 class="card-title">{{ book_instance.book.title }}</h5>
-                      Author: {{ book_instance.book.author }}
-                      <br/>
-                      
-                      <strong>Rent period</strong>
-                      <div class="row justify-content-center">
-                        <p class="card-text" >{{ book_instance.start_date }} -> {{ book_instance.end_date }}</p>
+      {% if rented_books %}
+      <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
+              {% for book_instance in rented_books %}
+                  <div class="col mb-5">
+                      <div class="card h-100">
+                          <img src="{{ book_instance.book.image.url }}" class="card-img-top img-fluid rounded-top custom-image" alt="..." >
+                          <div class="card-body">
+                              <h3 class="card-title">{{ book_instance.book.title }}</h5>
+                              <p class="card-text">Author: {{ book_instance.book.author }}</p>
+                              <strong>Rent period</strong>
+                              <p class="card-text">{{ book_instance.start_date }} -> {{ book_instance.end_date }}</p>
+                              <a href="{% url 'book' book_instance.book.id %}" class="btn btn-dark">Book details</a>
+                          </div>
                       </div>
-                          
-                      <br/> <br/>
-                      <a href="{% url 'book' book_instance.book.id %}" class="btn btn-dark">Book details</a>
-                      <br/><br/>
-                  </center>
-              </div>
-            </div>
+                  </div>
+              {% endfor %}
           </div>
-        </div>
-          <br/>
-        {% endfor %}
-    {% else %}
-        <p>You haven't rented any books yet.</p>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    {% endif %}   
-            
-    </div>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      {% else %}
+          <p>You haven't rented any books yet.</p>
+      {% endif %}   
+  </div>
+  
 
 
 <script>

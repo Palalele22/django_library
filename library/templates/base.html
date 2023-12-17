@@ -20,23 +20,24 @@
     <body>
         <!-- Navbar-->
         {% include 'navbar.html' %}
-
-        {% if messages  %}
-            {% for message in messages %}
-            <div class="position-fixed top-0 end-0 p-2" style="max-width: 300px;">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <main>
+            {% if messages  %}
+                {% for message in messages %}
+                <div class="position-fixed top-0 end-0 p-2" style="max-width: 300px;">
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 </div>
-            </div>
-            {% endfor %}
-        {% endif %}
+                {% endfor %}
+            {% endif %}
+                
+            {% block content %}
+            {% endblock %}
             
-        {% block content %}
-        {% endblock %}
-        
+        </main>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
+        <footer class="py-5 bg-dark footer-base">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Palalele Library 2023</p></div>
         </footer>
         <!-- Bootstrap core JS-->

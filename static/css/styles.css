@@ -1,15 +1,7 @@
 @charset "UTF-8";
-/*!
-* Start Bootstrap - Shop Homepage v5.0.6 (https://startbootstrap.com/template/shop-homepage)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
-*/
-/*!
- * Bootstrap  v5.2.3 (https://getbootstrap.com/)
- * Copyright 2011-2022 The Bootstrap Authors
- * Copyright 2011-2022 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+
+
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -91,7 +83,37 @@
   }
 }
 
+.custom-image {
+  object-fit: cover !important; 
+  height: 100% !important; 
+  width: 100% !important;  
+}
+
+.image-container {
+  height: 100% !important;
+  width: 100% !important;
+  overflow: hidden;
+}
+
+.custom-image-card {
+  object-fit: cover !important; 
+  height: 100% !important; 
+  width: 100% !important;  
+}
+
+.image-container-card {
+  height: 50%;
+  width: 100%;
+  overflow: hidden;
+}
+
+
+
+
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   margin: 0;
   font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);
@@ -102,6 +124,14 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+main {
+  flex-grow: 1; 
+}
+
+.footer-base {
+  flex-shrink: 0; 
 }
 
 hr {

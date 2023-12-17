@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Report</h1>
+                <p class="lead fw-normal text-white-50 mb-0">View informations about books...</p>
+            </div>
+        </div>
+    </header>
+    <br/>
+    <!-- Section-->
+
+    <div class="container">
+      <ul class="nav nav-tabs" id="bookTabs">
+          <li class="nav-item">
+              <a class="nav-link active" id="rented-books-tab" data-toggle="tab" href="#rented-books">Rented Books</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" id="available-books-tab" data-toggle="tab" href="#available-books">Available Books</a>
+          </li>
+      </ul>
+    </div>
+    
+    <!-- Section for rented books -->
+    <div class="container tab-content" id="bookTables">
+      <div class="tab-pane fade show active" id="rented-books">
+          {% if rented_books %}
+              <table class="table">
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Borrower</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for book_instance in rented_books %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ book_instance.book.title }}</td>
+                    <td>{{ book_instance.borrower.username }}</td>
+                    <td>{{ book_instance.start_date }}</td>
+                    <td>{{ book_instance.end_date }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+          {% else %}
+              <p>No rented books available.</p>
+          {% endif %}
+      </div>
+    
+      <!-- Section for available books -->
+      <div class="tab-pane fade" id="available-books">
+          {% if available_books %}
+              <table class="table">
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Quantity Left</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for book in available_books %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.category.name }}</td>
+                    <td>{{ book.quantity }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+          {% else %}
+              <p>No available books available.</p>
+          {% endif %}
+      </div>
+    </div>
+
+<script>
+  $(document).ready(function(){
+        $('#bookTabs a').on('click', function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+
+        $('#bookTabs a').on('shown.bs.tab', function (e) {
+            var target = $(e.target).attr("href");
+            if (target === "#rented-books") {
+                $('#available-books-tab').removeClass('active');
+                $('#rented-books-tab').addClass('active');
+            } else if (target === "#available-books") {
+                $('#rented-books-tab').removeClass('active');
+                $('#available-books-tab').addClass('active');
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}
+

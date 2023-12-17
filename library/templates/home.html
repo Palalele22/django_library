@@ -16,7 +16,9 @@
             {% for book in books %}
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top" src="{{ book.image.url }}" alt="..." />
+                        <div class="image-container-card">
+                            <img class="card-img-top custom-image-card" src="{{ book.image.url }}" alt="..." />
+                        </div>
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h5 class="fw-bolder">{{ book.title }}</h5>
