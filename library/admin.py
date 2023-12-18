@@ -9,7 +9,8 @@ class CustomUserAdmin(admin.ModelAdmin):
 
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'category', 'quantity')
-    search_fields = ('title', 'author', 'category', 'quantity')
+    search_fields = ('title', 'author', 'category__name', 'quantity')
+    
     
 class BookInstanceAdmin(admin.ModelAdmin):
     list_display = ('book', 'borrower', 'is_returned', 'start_date', 'end_date')

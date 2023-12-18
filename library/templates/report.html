@@ -20,6 +20,9 @@
           <li class="nav-item">
               <a class="nav-link" id="available-books-tab" data-toggle="tab" href="#available-books">Available Books</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" id="all-books-tab" data-toggle="tab" href="#all-books">All Books</a>
+        </li>
       </ul>
     </div>
     
@@ -83,6 +86,48 @@
               <p>No available books available.</p>
           {% endif %}
       </div>
+
+      <!-- Section for all books -->
+      <div class="tab-pane fade" id="all-books">
+        {% if all_books %}
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Book Title</th>
+                  <th scope="col">Author</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Quantity Left</th>
+                  <th scope="col">Is Available</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for book in all_books %}
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ book.title }}</td>
+                  <td>{{ book.author }}</td>
+                  <td>{{ book.category.name }}</td>
+                  <td>{{ book.quantity }}</td>
+                  
+                  {% if book.quantity == 0 %}
+                    <td class="icon-cell red-bg">
+                      <span class="icon">&#10006;</span>
+                    </td>
+                  {% else %}
+                    <td class="icon-cell green-bg">
+                      <span class="icon">&#10004;</span>
+                    </td>
+                  {% endif %}
+                    
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        {% else %}
+            <p>No available books available.</p>
+        {% endif %}
+    </div>
     </div>
 
 <script>
