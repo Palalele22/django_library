@@ -38,11 +38,19 @@ class CartDeleteView(View):
 
 class RentBookView(View):
     
+    def can_rent_book(self, user):
+        return BookInstance.objects.filter(borrower=user, is_returned=False).count() < 5
+    
     def post(self, request, *args, **kwargs):
         cart = Cart(request)
         if request.POST.get('action') == 'post':
             book_id = int(request.POST.get('book_id'))
             book = get_object_or_404(Book, id=book_id)
+            
+            if not self.can_rent_book(request.user):
+                response = JsonResponse({'success': False, 'message': 'You have reached the maximum limit of rented books.'})
+                messages.error(request, 'You have reached the maximum limit of rented books.')
+                return response
 
             existing_instance = BookInstance.objects.filter(book=book, borrower=request.user, is_returned=False).first()
             if existing_instance:

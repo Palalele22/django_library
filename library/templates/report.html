@@ -30,8 +30,8 @@
     <div class="container tab-content" id="bookTables">
       <div class="tab-pane fade show active" id="rented-books">
           {% if rented_books %}
-              <table class="table">
-                <thead class="table-dark">
+              <table id="rentedBooksTable" class="table">
+                <thead class="table-dark pt-2">
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Book Title</th>
@@ -60,7 +60,7 @@
       <!-- Section for available books -->
       <div class="tab-pane fade" id="available-books">
           {% if available_books %}
-              <table class="table">
+              <table id="availableBooksTable" class="table">
                 <thead class="table-dark">
                   <tr>
                     <th scope="col">#</th>
@@ -90,7 +90,7 @@
       <!-- Section for all books -->
       <div class="tab-pane fade" id="all-books">
         {% if all_books %}
-            <table class="table">
+            <table id="allBooksTable" class="table">
               <thead class="table-dark">
                 <tr>
                   <th scope="col">#</th>
@@ -147,6 +147,11 @@
                 $('#available-books-tab').addClass('active');
             }
         });
+
+        // Initialize DataTable
+        $('#rentedBooksTable').DataTable();
+        $('#availableBooksTable').DataTable();
+        $('#allBooksTable').DataTable();
     });
 </script>
 

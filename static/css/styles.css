@@ -83,10 +83,29 @@
   }
 }
 
-.thumbnail-book{
-  background-image: url('/static/assets/banner.jpg'); 
-  background-size: cover; 
-  background-position: 50% 50%;
+
+ #rentedBooksTable_length, #rentedBooksTable_filter input  {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+ #availableBooksTable_length, #availableBooksTable_filter input  {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+ #allBooksTable_length, #allBooksTable_filter input  {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#allBooksTable_paginate, #allBooksTable_info, #availableBooksTable_paginate, #availableBooksTable_info, #rentedBooksTable_paginate, #rentedBooksTable_info{
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.paginate_button {
+  padding: 0.25em 0.5em!important;
 }
 
 .custom-image {
@@ -370,6 +389,10 @@ th {
   border-color: inherit;
   border-style: solid;
   border-width: 0;
+}
+
+th, td, tr {
+  border-color: var(--bs-gray-400) !important;
 }
 
 label {
