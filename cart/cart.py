@@ -14,7 +14,6 @@ class Cart():
     def add(self, book):
         book_id = str(book.id)
         
-        # logic
         if book_id in self.cart:
             pass
         else:

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>Delete Review</h2>
+    <p>Are you sure you want to delete the review for "{{ review.title }}"?</p>
+    <form method="post" action="{% url 'reviews:delete_review' review_id=review.id %}" class="w-50">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Delete</button>
+      <a href="{% url 'reviews:review_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}

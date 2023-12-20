@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+      <div class="text-center text-white">
+        <h1 class="display-4 fw-bolder">Edit Review</h1>
+      </div>
+    </div>
+  </header>
+  <div class="container mt-4">
+    <h2>Edit Review for {{ review.title }}</h2>
+    <form method="post" action="{% url 'reviews:edit_review' review_id=review.id %}" class="w-50">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Update Review</button>
+    </form>
+  </div>
+{% endblock %}

@@ -1,43 +1,71 @@
-{% extends 'base.html' %}
-{% block content %}
-    <!-- Header-->
-    <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">My Books</h1>
-                <p class="lead fw-normal text-white-50 mb-0">View your rented books...</p>
-            </div>
-        </div>
-    </header>
-    <!-- Section-->
-    <br/>
-    <div class="container">
-      {% if rented_books %}
-      <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
-              {% for book_instance in rented_books %}
-                  <div class="col mb-5">
-                      <div class="card h-100">
-                          <img src="{{ book_instance.book.image.url }}" class="card-img-top img-fluid rounded-top custom-image" alt="..." >
-                          <div class="card-body">
-                              <h3 class="card-title">{{ book_instance.book.title }}</h5>
-                              <p class="card-text">Author: {{ book_instance.book.author }}</p>
-                              <strong>Rent period</strong>
-                              <p class="card-text">{{ book_instance.start_date }} -> {{ book_instance.end_date }}</p>
-                              <a href="{% url 'book' book_instance.book.id %}" class="btn btn-dark">Book details</a>
-                          </div>
-                      </div>
-                  </div>
-              {% endfor %}
-          </div>
-      {% else %}
-          <p>You haven't rented any books yet.</p>
-      {% endif %}   
+{% extends 'base.html' %} {% block content %}
+<header class="bg-dark py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">My Books</h1>
+      <p class="lead fw-normal text-white-50 mb-0">View your rented books...</p>
+    </div>
   </div>
-  
+</header>
+<br />
+<div class="container">
+  {% if rented_books %}
+  <div
+    class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center"
+  >
+    {% for book_instance in rented_books %}
+    <div class="col mb-5">
+      <div class="card h-100">
+        <img
+          src="{{ book_instance.book.image.url }}"
+          class="card-img-top img-fluid rounded-top custom-image"
+          alt="..."
+        />
+        <div class="card-body">
+          <h3 class="card-title">{{ book_instance.book.title }}</h3>
+          <p class="card-text">Author: {{ book_instance.book.author }}</p>
+          <strong>Rent period</strong>
+          <p class="card-text">
+            {{ book_instance.start_date }} -> {{ book_instance.end_date }}
+          </p>
+          <strong>Is returned:</strong>
+          {% if book_instance.is_returned %}
+          <div class="icon-cell green-bg d-inline-block mb-2">
+            <span class="icon">&#10004;</span>
+          </div>
+          {% else %}
+          <div class="icon-cell red-bg d-inline-block mb-2">
+            <span class="icon">&#10006;</span>
+          </div>
+
+          {% endif %}
+          <a
+            href="{% url 'book' book_instance.book.id %}"
+            class="btn btn-dark d-block"
+            >Book details</a
+          >
+
+          {% if book_instance.has_reviewed %}
+            <a href="{% url 'reviews:edit_review' book_instance.has_reviewed %}" class="btn btn-warning d-block my-2">Edit Review</a>
+          {% else %}
+            <a href="{% url 'reviews:add_review' book_instance.book.id %}" class="btn btn-primary d-block my-2">Add Review</a>
+          {% endif %}
 
 
-<script>
+          <!-- <a href="{% if book_instance.has_reviewed %}{% url 'reviews:edit_review' book_instance.has_reviewed %}{% else %}{% url 'reviews:add_review' book_instance.book.id %}{% endif %}"
+          class="btn btn-primary d-block my-2">
+          {% if book_instance.has_reviewed %}Edit Review{% else %}Add Review{% endif %} -->
+        </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>You haven't rented any books yet.</p>
+  {% endif %}
+</div>
 
-</script>
+<script></script>
 
 {% endblock %}

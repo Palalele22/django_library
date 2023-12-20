@@ -1,18 +1,14 @@
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import DetailView, TemplateView
-
 from library.decorators import staff_required
-from .models import Book, BookInstance, Category
+from library.models import Book, BookInstance, Category
+from reviews.models import Review
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm
-from django import forms
+from library.forms import SignUpForm
 
 
 class HomeView(TemplateView):
@@ -24,7 +20,7 @@ class HomeView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['books'] = Book.objects.all()
+        context['books'] = Book.objects.all().order_by('-id')
         return context
 
 
@@ -63,6 +59,14 @@ class BookView(DetailView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        reviews = Review.objects.filter(book=self.object)
+        
+        context['reviews'] = reviews
+        return context
     
 
 class LoginUserView(View):
@@ -124,8 +128,15 @@ class MyBooksView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        rented_books = BookInstance.objects.filter(borrower=self.request.user, is_returned=False)
+        rented_books = BookInstance.objects.filter(borrower=self.request.user)
+        
+        for book_instance in rented_books:
+            review = book_instance.book.review_set.filter(user=self.request.user).first()
+            book_instance.has_reviewed = review.id if review else None
+
+
         context['rented_books'] = rented_books
+        
         return context
 
 

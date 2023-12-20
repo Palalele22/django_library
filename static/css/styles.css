@@ -83,6 +83,10 @@
   }
 }
 
+.rent-all-books {
+  margin-bottom: 20px !important;
+}
+
 
  #rentedBooksTable_length, #rentedBooksTable_filter input  {
   margin-top: 10px;

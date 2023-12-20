@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, User
-import datetime
+from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
     is_approved = models.BooleanField(default=False)
@@ -27,6 +26,12 @@ class Book(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def average_stars(self):
+        reviews = self.review_set.all()
+        if reviews:
+            return sum(review.stars for review in reviews) / len(reviews)
+        return 0
     
 
 class BookInstance(models.Model):

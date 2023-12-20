@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
+{% load custom_filters %}
 {% block content %}
-    <!-- Header-->
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
@@ -9,7 +9,6 @@
             </div>
         </div>
     </header>
-    <!-- Section-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
 
@@ -25,6 +24,19 @@
                                 <h5 class="fw-bolder">{{ book.title }}</h5>
                                 by {{ book.author }}
                                 <div>Quantity: {{ book.quantity }}</div>
+                                <div>
+                                    {% with stars_info=book.average_stars|stars %}
+                                    {% for _ in stars_info.full_stars %}
+                                        <i class="fas fa-star"></i>
+                                    {% endfor %}
+                                    {% if stars_info.half_star %}
+                                        <i class="fas fa-star-half-alt"></i>
+                                    {% endif %}
+                                    {% for _ in stars_info.empty_stars %}
+                                        <i class="far fa-star"></i>
+                                    {% endfor %}
+                                {% endwith %}
+                                </div>
                             </div>
                         </div>
                         {% if book.quantity > 0 %}

@@ -1,0 +1,19 @@
+
+[
+  {
+      "model": "library.CustomUser",
+      "pk": 1,
+      "fields": {
+      "username": "admin",
+      "password": "pbkdf2_sha256$720000$OcM0fvjesnhoiaStt26A0A$yEGLR0u2blcVdorpqTkum3K8KjccRmbRNmF1Ih7WsXw=",  
+      "email": "admin@test.com",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_staff": true,
+      "is_superuser": true,
+      "date_joined": "2023-12-20T23:04:02Z",
+      "is_approved": true
+      }
+  }
+]

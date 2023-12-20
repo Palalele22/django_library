@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+      <div class="text-center text-white">
+        <h1 class="display-4 fw-bolder">My Reviews</h1>
+        <p class="lead fw-normal text-white-50 mb-0">View your reviews...</p>
+      </div>
+    </div>
+  </header>
+  <div class="container mt-4">
+    <h2>Reviews</h2>
+    {% if reviews %}
+      <ul class="list-group">
+        {% for review in reviews %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{review.book}} - {{ review.title }} - {{ review.stars }} stars
+            <div>
+              <a href="{% url 'reviews:edit_review' review_id=review.id %}" class="btn btn-warning btn-sm me-2">Edit</a>
+              <a href="{% url 'reviews:delete_review' review_id=review.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No reviews available.</p>
+    {% endif %}
+  </div>
+{% endblock %}
